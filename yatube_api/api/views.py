@@ -34,6 +34,6 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         # Привязываем комментарий к посту и текущему автору
-        serializer.save(author=self.request.user, 
+        serializer.save(author=self.request.user,
                         post_id=self.kwargs['post_id']
-        )
+                        )
