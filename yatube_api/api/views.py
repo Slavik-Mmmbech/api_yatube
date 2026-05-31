@@ -1,7 +1,5 @@
-from django.shortcuts import render
-
 # Create your views here.
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from posts.models import Post, Comment, Group
@@ -36,4 +34,6 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         # Привязываем комментарий к посту и текущему автору
-        serializer.save(author=self.request.user, post_id=self.kwargs['post_id'])
+        serializer.save(author=self.request.user, 
+                        post_id=self.kwargs['post_id']
+        )

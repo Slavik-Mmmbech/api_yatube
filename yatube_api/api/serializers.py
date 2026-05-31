@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from posts.models import Post, Comment, Group
 
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
@@ -15,12 +16,11 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'text', 'author', 'image', 'group', 'pub_date')
-        read_only_fields = ('author', 'pub_date')  # Автор и дата создаются системой
+        read_only_fields = ('author', 'pub_date')
 
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
-    # Ссылка на пост будет подставляться автоматически через URL, но отдавать будем ID
     post = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
